@@ -1,57 +1,57 @@
-# How to run
+## How to run
 
 1. Clone this repo
 2. *cd* into either **singlevm** or **threevm** folder
 3. run ```vagrant up```
 
-# Dev/Test Environment
+## Dev/Test Environment
 
 1. Windows 10 Pro x64 Version 1607 (OS Build 14393.351)
 2. Vagrant, 1.8.6
-3, VirtualBox, 5.1.4
+3. VirtualBox, 5.1.4
 
-# Folder structure
+## Folder structure
 
 .
-├── LICENSE
-├── provision
-│   ├── roles
-│   │   ├── aspnet
-│   │   │   ├── files
-│   │   │   │   ├── Program.cs
-│   │   │   │   ├── project.json
-│   │   │   │   ├── Startup.cs
-│   │   │   │   ├── UsgsData.cs
-│   │   │   │   └── UsgsService.cs
-│   │   │   ├── meta
-│   │   │   │   └── main.yml
-│   │   │   └── tasks
-│   │   │       ├── 10_install_aspnet.yml
-│   │   │       └── main.yml
-│   │   ├── common
-│   │   │   └── tasks
-│   │   │       ├── 10_update_sudoer.yml
-│   │   │       ├── 20_update_aptcache.yml
-│   │   │       └── main.yml
-│   │   └── nginx
-│   │       ├── files
-│   │       │   ├── default.single
-│   │       │   └── default.three
-│   │       ├── meta
-│   │       │   └── main.yml
-│   │       └── tasks
-│   │           ├── 10_install_nginx.yml
-│   │           └── main.yml
-│   ├── single_deploy.yml
-│   └── three_deploy.yml
-├── README.md
-├── singlevm
-│   └── Vagrantfile
-└── threevm
-    ├── testlb.sh
-    └── Vagrantfile
+├── LICENSE  
+├── provision  
+│   ├── roles  
+│   │   ├── aspnet  
+│   │   │   ├── files  
+│   │   │   │   ├── Program.cs  
+│   │   │   │   ├── project.json  
+│   │   │   │   ├── Startup.cs  
+│   │   │   │   ├── UsgsData.cs  
+│   │   │   │   └── UsgsService.cs  
+│   │   │   ├── meta  
+│   │   │   │   └── main.yml  
+│   │   │   └── tasks  
+│   │   │       ├── 10_install_aspnet.yml  
+│   │   │       └── main.yml  
+│   │   ├── common  
+│   │   │   └── tasks  
+│   │   │       ├── 10_update_sudoer.yml  
+│   │   │       ├── 20_update_aptcache.yml  
+│   │   │       └── main.yml  
+│   │   └── nginx  
+│   │       ├── files  
+│   │       │   ├── default.single  
+│   │       │   └── default.three  
+│   │       ├── meta  
+│   │       │   └── main.yml  
+│   │       └── tasks  
+│   │           ├── 10_install_nginx.yml  
+│   │           └── main.yml  
+│   ├── single_deploy.yml  
+│   └── three_deploy.yml  
+├── README.md  
+├── singlevm  
+│   └── Vagrantfile  
+└── threevm  
+    ├── testlb.sh  
+    └── Vagrantfile  
 
-# Dev Notes
+## Dev Notes
 
 1. Vagrant Ansible local provider installs Ansible into vm automatically, there is no such steps in above files.
 2. In **singlevm** we have a shell provisioner that will check on port 80, and will fail the provision if nginx is not listening on 80.
@@ -64,7 +64,7 @@
 6. As my understanding the head node is both an nginx role and aspnet role, this can be changed however very easily.
 7. In **threevm** we no longer test port 80, but fire a testing script to check on the return of each load-balanced aspnet host.
 
-# Future improvements/Current compromises
+## Future improvements/Current compromises
 
 1. Some people might combine the vagrant files into one, to handle single vm and multiple vms in one go. Yet We felt that's over-optimisation. Although it reduced one vagrant file, but it makes people trying to understand the single vm scenario more difficult. In the current design, each scenario locates in a single folder with one vagrant file and 0 to 1 testing script, all the provisioning code are shared between them.
 
