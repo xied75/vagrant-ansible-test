@@ -1,0 +1,24 @@
+# ./provision/roles/common/tasks/10_update_sudoer.yml
+
+- name: sudoer | Make sure we have an 'admin' group
+  group:
+    name: admin
+    state: present
+  become: yes
+
+- name: sudoer | Allow 'admin' group to have password sudoer
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%admin'
+    line: '%admin ALL=(ALL) ALL'
+  become: yes
+
+- name: sudoer | Allow 'vagrant' user passwordless
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%vagrant'
+    line: '%vagrant ALL=(ALL) NOPASSWD: ALL'
+  become: yes
+  

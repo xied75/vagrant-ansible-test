@@ -1,0 +1,4 @@
+# ./provision/roles/nginx/tasks/main.yml
+
+dependencies:
+  - { role: common }

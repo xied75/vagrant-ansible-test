@@ -1,0 +1,10 @@
+# ./provision/three_deploy.yml
+
+- hosts: nginx 
+  roles:
+    - aspnet
+    - { role: nginx, nginx_conf: "default.three" }
+
+- hosts: aspnet1 aspnet2
+  roles: 
+    - aspnet

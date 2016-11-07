@@ -1,0 +1,46 @@
+# ./provision/roles/aspnet/tasks/10_install_aspnet.yml
+
+- name: dotnet | Adding sources.list deb url for dotnet
+  lineinfile:
+    dest: /etc/apt/sources.list.d/dotnetdev.list
+    create: yes
+    state: present
+    line: deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main
+  become: yes
+
+- name: dotnet | Adding dotnet signing key
+  apt_key:
+    id: 417A0893
+    keyserver: apt-mo.trafficmanager.net
+    state: present
+  become: yes
+
+- name: apt | Updating apt cache
+  apt:
+    update_cache: yes
+  become: yes
+  tags: install
+
+- name: dotnet | Installing dotnet
+  apt:
+    pkg: dotnet-dev-1.0.0-preview2-003131
+    state: latest
+  become: yes
+
+- name: aspnet | dotnet cleanup
+  shell: kill $(ps -C dotnet -o pid=) > /dev/null 2>&1; rm -rf ~/aspnetcoreapp
+  args:
+    chdir: ~/
+  become: yes
+
+- copy: src=../files/ dest=~/aspnetcoreapp
+
+- name: aspnet | dotnet restore
+  command: /usr/bin/dotnet restore
+  args:
+    chdir: ~/aspnetcoreapp
+
+- name: aspnet | dotnet run
+  shell: ASPNETCORE_URLS="https://*:5000" nohup dotnet run > /dev/null 2>&1 &
+  args:
+    chdir: ~/aspnetcoreapp

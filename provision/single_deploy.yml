@@ -1,0 +1,6 @@
+# ./provision/single_deploy.yml
+
+- hosts: nginx 
+  roles:
+    - aspnet
+    - { role: nginx, nginx_conf: "default.single" }

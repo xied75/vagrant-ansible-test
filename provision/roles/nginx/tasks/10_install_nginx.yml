@@ -1,0 +1,21 @@
+# ./provision/roles/nginx/tasks/10_install_nginx.yml
+
+- name: nginx | Installing NGINX
+  apt:
+    pkg: nginx
+    state: latest
+  become: yes
+
+- name: nginx | Starting NGINX
+  service:
+    name: nginx
+    state: started
+  become: yes
+
+- name: nginx | Copy conf
+  copy: src={{ nginx_conf }} dest=/etc/nginx/sites-available/default
+  become: yes
+
+- name: nginx | reload conf
+  shell: nginx -s reload
+  become: yes
