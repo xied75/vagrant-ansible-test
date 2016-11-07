@@ -12,6 +12,7 @@
 
 ## Folder structure
 
+```
 .
 ├── LICENSE  
 ├── provision  
@@ -50,6 +51,7 @@
 └── threevm  
     ├── testlb.sh  
     └── Vagrantfile  
+```
 
 ## Dev Notes
 
